@@ -6,37 +6,37 @@ package engine;
 public interface IEngine {
 
     /**
-     * @return Battement par minute
+     * @return Flapping by minute
      */
     int getTempo();
 
     /**
-     * @param t Battement par minute
+     * @param t Flapping by minute
      */
     void setTempo(int t);
 
     /**
-     * @return Nombre de temps par mésure
+     * @return Time number by measure
      */
     int getTempsPm();
 
     /**
-     * @param t Nombre de temps par mésure
+     * @param t Time number by measure
      */
     void setNbTempsPm(int t);
 
     /**
-     * @return Etat du moteur
+     * @return Engine state
      */
-    Boolean getEnMarche();
+    Boolean getRunning();
 
     /**
-     * @param m Etat moteur
+     * @param m Engine state
      */
-    void setEnMarche(Boolean m);
+    void setRunning(Boolean m);
 
     /**
-     * gére les événement de l'horloge
+     * Manage event of the clock
      */
     void tic();
 

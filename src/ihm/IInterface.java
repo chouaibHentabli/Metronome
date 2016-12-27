@@ -10,80 +10,80 @@ import engine.Engine;
 public interface IInterface {
 
     /**
-     * @param c Controlleur
+     * @param c Controller
      */
     public void setControleur(Controller c);
 
     /**
-     * Moteur
+     * Engine
      *
      * @param e
      */
-    public void setMoteur(Engine e);
+    public void setEngine(Engine e);
 
     /**
-     * Initialiser la configuration de la vue
+     * init vue configuration
      */
     public void init();
 
     /**
-     * Acitver le moteur
+     * enable the engine
      */
     public void start();
 
     /**
-     * Arrêter le moteur
+     * stop the engine
      */
     public void stop();
 
     /**
-     * Incrémenter la mésure
+     * Increment the measure
      */
     public void increment();
 
     /**
-     * Décrementer la mésure
+     * Decrement the measure
      */
     public void decrement();
 
     /**
-     * @param v Battement par mésure
+     * @param v flapping by measure
      */
     public void setTempoText(int v);
 
     /**
-     * Allumer led tempo
+     * switch on led tempo
      */
-    public void allumeTic();
+    public void switchOnTic();
 
     /**
-     * Allumer led messure
+     * switch on led measure
      */
-    public void allumeToc();
+    public void switchOnToc();
 
     /**
-     * Mise à jour le tempo sur la vue
+     * Update the tempo on the view
      */
     public void updateTempo();
 
     /**
-     * @param commande Commande start
+     * @param command start command
      */
-    public void setStartCommande(Command commande);
+    public void setStartCommand(Command command);
 
     /**
-     * @param commande Commande stop
+     * @param command stop command
      */
-    public void setStopCommande(Command commande);
+    public void setStopCommand(Command command);
 
     /**
-     * @param commande Commande incremente
+     * @param command increment command
      */
-    public void setIncCommande(Command commande);
+    public void setIncCommand(Command command);
 
     /**
-     * @param commande Commande decremente
+     * @param command decrement command
      */
-    public void setDecCommande(Command commande);
+    public void setDecCommand(Command command);
 
 }

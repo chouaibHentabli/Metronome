@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
@@ -17,30 +18,32 @@ import javafx.scene.text.Text;
 public class Interface implements IInterface {
 
     @FXML
-    TextField tempo;
+    private TextField tempo;
     @FXML
-    Text value;
+    private Text value;
     @FXML
-    Slider tempoSlider;
+    private Slider tempoSlider;
     @FXML
-    javafx.scene.shape.Rectangle ledtic;
+    private Rectangle ledtic;
     @FXML
-    javafx.scene.shape.Rectangle ledtoc;
+    private Rectangle ledtoc;
+
     private Controller controleur;
     private Engine engine;
-    Led led;
+    private Led led;
+
     //Commandes
-    Command start, stop, inc, dec;
+    private Command start, stop, inc, dec;
 
     //Sonor
-    Sonor sonor;
+    private Sonor sonor;
 
     public void setControleur(Controller c) {
         this.controleur = c;
     }
 
     @Override
-    public void setMoteur(Engine e) {
+    public void setEngine(Engine e) {
         this.engine = e;
     }
 
@@ -84,16 +87,15 @@ public class Interface implements IInterface {
     }
 
     @Override
-    public void allumeTic() {
-
-        led = new SimpleLed(ledtic, Color.STEELBLUE);
+    public void switchOnTic() {
+        led = new SimpleLed(ledtic, Color.LIMEGREEN);
         led.flash();
         System.out.println("Tic");
     }
 
     @Override
-    public void allumeToc() {
-        led = new SimpleLed(ledtoc, Color.ORANGERED);
+    public void switchOnToc() {
+        led = new SimpleLed(ledtoc, Color.BLUE);
         led.flash();
         System.out.println("Toc");
     }
@@ -104,22 +106,22 @@ public class Interface implements IInterface {
     }
 
     @Override
-    public void setStartCommande(Command commande) {
+    public void setStartCommand(Command commande) {
         start = commande;
     }
 
     @Override
-    public void setStopCommande(Command commande) {
+    public void setStopCommand(Command commande) {
         stop = commande;
     }
 
     @Override
-    public void setIncCommande(Command commande) {
+    public void setIncCommand(Command commande) {
         inc = commande;
     }
 
     @Override
-    public void setDecCommande(Command commande) {
+    public void setDecCommand(Command commande) {
         dec = commande;
     }
 }

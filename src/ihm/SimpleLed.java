@@ -9,7 +9,7 @@ import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 /**
- * Created by controlberkani on 26/12/2015.
+ * Created by chouaib on 22/12/2016.
  */
 public class SimpleLed implements Led {
     private Timeline flashAnimation;

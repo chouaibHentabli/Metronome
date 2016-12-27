@@ -7,14 +7,14 @@ import controller.Controller;
  */
 public class Stop implements Command {
 
-    Controller controller;
+    private Controller controller;
 
     public Stop(Controller controller) {
         this.controller = controller;
     }
 
     @Override
-    public void executer() {
-
+    public void execute() {
+        controller.stop();
     }
 }

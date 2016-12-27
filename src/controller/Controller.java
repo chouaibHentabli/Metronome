@@ -6,50 +6,63 @@ import ihm.Interface;
 
 import java.util.Observable;
 
-public class Controller {
+/**
+ * Created by chouaib on 22/12/16.
+ */
+public class Controller implements IController {
 
     Engine engine;
     //ihm view;
     IInterface view;
 
-    public ControleurImpl() {
+    public Controller() {
         engine = new Engine(this);
-
     }
 
-    public void setView(Interface v) {
-        view = v;
-        view.setMoteur(moteur);
-        //Thread t=new Thread((Interface)view);
-        //t.start();
+    public Engine getEngine() {
+        return this.engine;
     }
+
+    public void setEngine(Engine e) {
+        this.engine = e;
+    }
+
+    public IInterface getView() {
+        return this.view;
+    }
+
+    public void setView(IInterface v) {
+        this.view = v;
+        this.view.setEngine(engine);
+    }
+
 
     @Override
-    public void MarquerMesure() {
+    public void MarkMeasure() {
         if (view != null)
-            view.allumeToc();
+            view.switchOnToc();
     }
 
     @Override
-    public void MarquerTemps() {
+    public void MarkTemps() {
         if (view != null)
-            view.allumeTic();
+            view.switchOnTic();
     }
 
     @Override
-    public void IncrementerMesure() {
-        if (moteur.getTempsPm() < 7) {
-            moteur.setNbTempsPm(moteur.getTempsPm() + 1);
+    public void incrementMeasure() {
+        if (engine.getTempsPm() < 7) {
+            engine.setNbTempsPm(engine.getTempsPm() + 1);
         }
-        System.out.println("nombre messure " + moteur.getTempsPm());
+        System.out.println("nombre messure " + engine.getTempsPm());
     }
 
     @Override
-    public void decrementerMesure() {
-        if (moteur.getTempsPm() > 2) {
-            moteur.setNbTempsPm(moteur.getTempsPm() - 1);
+    public void decrementMeasure() {
+        if (engine.getTempsPm() > 2) {
+            engine.setNbTempsPm(engine.getTempsPm() - 1);
         }
-        System.out.println("nombre messure " + moteur.getTempsPm());
+        System.out.println("nombre messure " + engine.getTempsPm());
     }
 
     @Override
@@ -60,15 +73,15 @@ public class Controller {
 
     @Override
     public void start() {
-        if (!moteur.getEnMarche()) {
-            moteur.setEnMarche(true);
+        if (!engine.getRunning()) {
+            engine.setRunning(true);
         }
     }
 
     @Override
     public void stop() {
-        if (moteur.getEnMarche()) {
-            moteur.setEnMarche(false);
+        if (engine.getRunning()) {
+            engine.setRunning(false);
         }
     }
 
@@ -76,7 +89,12 @@ public class Controller {
     public void setTempo(String value) {
         int temp;
         temp = Integer.parseInt(value);
-        moteur.setTempo(temp);
+        engine.setTempo(temp);
+    }
+
+    @Override
+    public void tic() {
+        engine.tic();
     }
 
     @Override
@@ -84,7 +102,5 @@ public class Controller {
 
     }
 
-    public Moteur getMoteur() {
-        return moteur;
-    }
+
 }

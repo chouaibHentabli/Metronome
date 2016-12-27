@@ -7,11 +7,11 @@ import controller.Controller;
  */
 public class MarkTempo implements Command {
 
-    Controller controleur;
+    private Controller controleur;
 
     @Override
     public void execute() {
-        controleur.MarquerTemps();
+        controleur.MarkTemps();
     }
 
     public MarkTempo(Controller controleur) {

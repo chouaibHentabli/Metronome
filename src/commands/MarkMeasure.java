@@ -7,12 +7,14 @@ import controller.Controller;
  * Created by chouaib on 22/12/16.
  */
 public class MarkMeasure implements Command {
-    Controller controleur ;
+    private Controller controleur;
+
     @Override
     public void execute() {
-        controleur.MarquerMesure();
+        controleur.MarkMeasure();
     }
-    public MarkMeasure(Controller c){
-        this.controleur=c;
+
+    public MarkMeasure(Controller c) {
+        this.controleur = c;
     }
 }

@@ -5,18 +5,18 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by controlberkani on 22/01/2016.
+ * Created by chouaib on 22/12/2016.
  */
 public class Sonor {
 
-    public void playSound(String filename){
+    public void playSound(String filename) {
 
         String strFilename = filename;
         int BUFFER_SIZE = 128000;
-        File soundFile=null;
-        AudioInputStream audioStream=null;
+        File soundFile = null;
+        AudioInputStream audioStream = null;
         AudioFormat audioFormat;
-        SourceDataLine sourceLine=null;
+        SourceDataLine sourceLine = null;
         try {
             soundFile = new File(strFilename);
         } catch (Exception e) {
@@ -26,7 +26,7 @@ public class Sonor {
 
         try {
             audioStream = AudioSystem.getAudioInputStream(soundFile);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }

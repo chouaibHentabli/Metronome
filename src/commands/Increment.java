@@ -7,7 +7,7 @@ import controller.Controller;
  */
 public class Increment implements Command {
 
-    Controller controller;
+    private Controller controller;
 
     public Increment(Controller controller) {
         this.controller = controller;
@@ -15,7 +15,7 @@ public class Increment implements Command {
 
 
     @Override
-    public void executer() {
-
+    public void execute() {
+        controller.incrementMeasure();
     }
 }

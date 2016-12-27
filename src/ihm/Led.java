@@ -5,7 +5,7 @@ package ihm;
  */
 public interface Led {
     /**
-     * rend la led allumé pendant une courte période
+     * Turns the led on for a short time
      */
     public void flash();
 }

@@ -7,22 +7,23 @@ import java.util.Timer;
 /**
  * Created by chouaib on 22/12/16.
  */
-public class Horloge implements IHorloge{
+public class Horloge implements IHorloge {
 
     Timer timer;
 
+
     @Override
-    public void activateAfterDelay(Command cmd, long delaiEnSecondes) {
+    public void activateAfterDelay(Command cmd, long delaiInSecondes) {
 
     }
 
     @Override
-    public void activatePeriodically(Command cmd, long periodEnSecondes) {
+    public void activatePeriodically(Command cmd, long periodInSecondes) {
         timer = new Timer();
         PeriodicTask task = new PeriodicTask(cmd);
         //long tempsMillisecondes = this.tempsEnMilliSecondes(periodEnSecondes);
         //System.out.println(tempsMillisecondes);
-        timer.schedule(task, 0, periodEnSecondes);
+        timer.schedule(task, 0, periodInSecondes);
     }
 
     @Override

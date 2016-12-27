@@ -1,18 +1,21 @@
 package commands;
 
-import Moteur.Moteur;
+import controller.Controller;
+import engine.Engine;
 
 /**
  * Created by chouaib on 22/12/16.
  */
 public class Tic implements Command {
 
-    Moteur moteur;
-    public Tic(Moteur m){
-        this.moteur=m;
+    private Controller controller;
+
+    public Tic(Controller c) {
+        this.controller = c;
     }
+
     @Override
     public void execute() {
-        moteur.tic();
+        controller.tic();
     }
 }

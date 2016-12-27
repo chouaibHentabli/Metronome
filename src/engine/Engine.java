@@ -2,22 +2,25 @@ package engine;
 
 import commands.*;
 import controller.Controller;
+import horloge.Horloge;
 
 /**
  * Created by chouaib on 22/12/16.
  */
 public class Engine implements IEngine {
-    Controller controleur;
-    //Horloge horloge;
-    int Tempo = 120;
-    int index_messure = 0;
-    Boolean enMarche = false;
-    int Messure = 4;
+    private Controller controller;
+    private Horloge horloge;
+    //default value 120
+    private int Tempo = 120;
+    private int measureIndex = 0;
+    private Boolean running = false;
+    //default value 4
+    private int Measure = 4;
 
     public Engine(Controller c) {
-        this.controleur = c;
-       // horloge = new HorlogeImpl();
-        index_messure = Messure;
+        this.controller = c;
+        this.horloge = new Horloge();
+        measureIndex = Measure;
     }
 
     @Override
@@ -27,12 +30,12 @@ public class Engine implements IEngine {
 
     @Override
     public void setTempo(int t) {
-        Command tic = new Tic(this);
-        Command UpdateTempo = new updateTempo(controleur);
+        Command tic = new Tic(controller);
+        Command UpdateTempo = new updateTempo(controller);
         this.Tempo = t;
-        if (getEnMarche()) {
-            horloge.desactiver();
-            horloge.activerPeriodiquement(tic, getPeriodMSFromBPM(getTempo()));
+        if (getRunning()) {
+            horloge.disable();
+            horloge.activatePeriodically(tic, getPeriodMSFromBPM(getTempo()));
         }
         //horloge.activerApresDelai(tic,getTempo());
         UpdateTempo.execute();
@@ -41,54 +44,56 @@ public class Engine implements IEngine {
 
     @Override
     public int getTempsPm() {
-        return Messure;
+        return Measure;
     }
 
     @Override
     public void setNbTempsPm(int t) {
-        Messure = t;
+        Measure = t;
     }
 
     @Override
-    public Boolean getEnMarche() {
-        return enMarche;
+    public Boolean getRunning() {
+        return running;
     }
 
     @Override
-    public void setEnMarche(Boolean m) {
+    public void setRunning(Boolean m) {
         System.out.println("Engine on : " + m);
         if (m) {
-            Command tic = new Tic(this);
-            this.horloge.activerPeriodiquement(tic, getPeriodMSFromBPM(getTempo()));
-            enMarche = true;
+            Command tic = new Tic(controller);
+            this.horloge.activatePeriodically(tic, getPeriodMSFromBPM(getTempo()));
+            running = true;
         } else {
             //this.setTempo(Init);
-            this.horloge.desactiver();
-            enMarche = false;
+            this.horloge.disable();
+            running = false;
         }
     }
 
     @Override
-    public void tic() {
-        index_messure--;
-        if (index_messure == 0) {
-            index_messure = Messure;
-            Command command = new MarkMeasure(controleur);
+    public synchronized void tic() {
+        measureIndex--;
+        System.err.println(measureIndex);
+        if (measureIndex < 0) {
+            measureIndex = Measure;
+            Command command = new MarkMeasure(controller);
             command.execute();
         } else {
-            Command command = new MarkTempo(controleur);
+            Command command = new MarkTempo(controller);
             command.execute();
         }
+
     }
 
     /**
-     * @param bpm Battement par minute
-     * @return Battement par milliseconde
+     * @param bpm Flapping by minute
+     * @return Flapping by milliseconde
      */
+
     private Long getPeriodMSFromBPM(int bpm) {
         float periodMinute = 1.0f / Float.valueOf(bpm);
         Long periodMS = Long.valueOf((int) (periodMinute * 60 * 1000));
         return periodMS;
     }
-
 }
