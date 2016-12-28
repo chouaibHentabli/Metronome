@@ -1,6 +1,8 @@
 package ihm;
 
 import commands.Command;
+import commands.SonorTic;
+import commands.SonorToc;
 import controller.Controller;
 import engine.Engine;
 import javafx.beans.value.ChangeListener;
@@ -49,14 +51,13 @@ public class Interface implements IInterface {
 
     @Override
     public void init() {
-        sonor = new Sonor();
+        this.sonor = new Sonor();
         tempoSlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
                 System.out.println(new_val.doubleValue());
 
                 controleur.setTempo(new_val.intValue() + "");
-
             }
         });
     }
@@ -88,15 +89,23 @@ public class Interface implements IInterface {
 
     @Override
     public void switchOnTic() {
+        //active led
         led = new SimpleLed(ledtic, Color.LIMEGREEN);
         led.flash();
+        //active sound
+        Command sonorTic = new SonorTic(this.sonor);
+        sonorTic.execute();
         System.out.println("Tic");
     }
 
     @Override
     public void switchOnToc() {
+        //active led
         led = new SimpleLed(ledtoc, Color.BLUE);
         led.flash();
+        //active sound
+        Command sonorToc = new SonorToc(this.sonor);
+        sonorToc.execute();
         System.out.println("Toc");
     }
 

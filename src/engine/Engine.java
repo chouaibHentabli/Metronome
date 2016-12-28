@@ -8,8 +8,7 @@ import horloge.Horloge;
  * Created by chouaib on 22/12/16.
  */
 public class Engine implements IEngine {
-    private Controller controller;
-    private Horloge horloge;
+
     //default value 120
     private int Tempo = 120;
     private int measureIndex = 0;
@@ -17,10 +16,24 @@ public class Engine implements IEngine {
     //default value 4
     private int Measure = 4;
 
+    private Controller controller;
+    private Horloge horloge;
+
     public Engine(Controller c) {
         this.controller = c;
         this.horloge = new Horloge();
         measureIndex = Measure;
+    }
+
+
+    /**
+     * @param bpm Flapping by minute
+     * @return Flapping by milliseconde
+     */
+    private Long getPeriodMSFromBPM(int bpm) {
+        float periodMinute = 1.0f / Float.valueOf(bpm);
+        Long periodMS = Long.valueOf((int) (periodMinute * 60 * 1000));
+        return periodMS;
     }
 
     @Override
@@ -59,7 +72,7 @@ public class Engine implements IEngine {
 
     @Override
     public void setRunning(Boolean m) {
-        System.out.println("Engine on : " + m);
+        System.out.println("Engine running: " + m);
         if (m) {
             Command tic = new Tic(controller);
             this.horloge.activatePeriodically(tic, getPeriodMSFromBPM(getTempo()));
@@ -72,9 +85,8 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public synchronized void tic() {
+    public void tic() {
         measureIndex--;
-        System.err.println(measureIndex);
         if (measureIndex < 0) {
             measureIndex = Measure;
             Command command = new MarkMeasure(controller);
@@ -83,17 +95,7 @@ public class Engine implements IEngine {
             Command command = new MarkTempo(controller);
             command.execute();
         }
-
     }
 
-    /**
-     * @param bpm Flapping by minute
-     * @return Flapping by milliseconde
-     */
 
-    private Long getPeriodMSFromBPM(int bpm) {
-        float periodMinute = 1.0f / Float.valueOf(bpm);
-        Long periodMS = Long.valueOf((int) (periodMinute * 60 * 1000));
-        return periodMS;
-    }
 }

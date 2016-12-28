@@ -6,17 +6,14 @@ import ihm.Interface;
 
 import java.util.Observable;
 
-/**
- * Created by chouaib on 22/12/16.
- */
 public class Controller implements IController {
 
     Engine engine;
-    //ihm view;
-    IInterface view;
+    IInterface ihm;
 
     public Controller() {
         engine = new Engine(this);
+
     }
 
     public Engine getEngine() {
@@ -27,26 +24,26 @@ public class Controller implements IController {
         this.engine = e;
     }
 
-    public IInterface getView() {
-        return this.view;
+    public IInterface getIhm() {
+        return this.ihm;
     }
 
-    public void setView(IInterface v) {
-        this.view = v;
-        this.view.setEngine(engine);
+    public void setIhm(IInterface v) {
+        this.ihm = v;
+        ihm.setEngine(engine);
     }
 
 
     @Override
     public void MarkMeasure() {
-        if (view != null)
-            view.switchOnToc();
+        if (ihm != null)
+            ihm.switchOnToc();
     }
 
     @Override
     public void MarkTemps() {
-        if (view != null)
-            view.switchOnTic();
+        if (ihm != null)
+            ihm.switchOnTic();
     }
 
     @Override
@@ -67,8 +64,8 @@ public class Controller implements IController {
 
     @Override
     public void updateTempo() {
-        if (view != null)
-            view.updateTempo();
+        if (ihm != null)
+            ihm.updateTempo();
     }
 
     @Override

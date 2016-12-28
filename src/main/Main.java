@@ -21,7 +21,7 @@ public class Main extends Application {
         Interface view = loader.getController();
 
         Controller controleur = new Controller();
-        controleur.setView(view);
+        controleur.setIhm(view);
         view.setControleur(controleur);
         view.init();
 
@@ -36,6 +36,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Application.launch(args);
+        //new ihmImpl(new ControleurImpl());
 
     }
 }

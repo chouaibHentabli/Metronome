@@ -33,7 +33,7 @@ public class Horloge implements IHorloge {
     }
 
     /**
-     * Renvoi le temps "tempsEnSeconde" en milli secondes
+     * return time "tempsEnSeconde" in milli secondes
      *
      * @param tempsEnSeconde
      * @return
