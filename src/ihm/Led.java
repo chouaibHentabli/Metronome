@@ -1,7 +1,7 @@
 package ihm;
 
 /**
- * Created by controlberkani on 26/12/2015.
+ * Created by chouaib on 22/12/16.
  */
 public interface Led {
     /**

@@ -9,7 +9,7 @@ public interface IController extends Observer {
 
 
     /**
-     * Mark the measure sur la vue
+     * Mark the measure on the vue
      */
     void MarkMeasure();
 

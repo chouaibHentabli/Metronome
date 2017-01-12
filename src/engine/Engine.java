@@ -4,17 +4,19 @@ import commands.*;
 import controller.Controller;
 import horloge.Horloge;
 
+import java.util.Observable;
+
 /**
  * Created by chouaib on 22/12/16.
  */
-public class Engine implements IEngine {
+public class Engine extends Observable implements IEngine {
 
     //default value 120
     private int Tempo = 120;
     private int measureIndex = 0;
     private Boolean running = false;
     //default value 4
-    private int Measure = 4;
+    private int measure = 4;
 
     private Controller controller;
     private Horloge horloge;
@@ -22,7 +24,7 @@ public class Engine implements IEngine {
     public Engine(Controller c) {
         this.controller = c;
         this.horloge = new Horloge();
-        measureIndex = Measure;
+        measureIndex = measure;
     }
 
 
@@ -50,19 +52,19 @@ public class Engine implements IEngine {
             horloge.disable();
             horloge.activatePeriodically(tic, getPeriodMSFromBPM(getTempo()));
         }
-        //horloge.activerApresDelai(tic,getTempo());
+
         UpdateTempo.execute();
     }
 
 
     @Override
     public int getTempsPm() {
-        return Measure;
+        return measure;
     }
 
     @Override
     public void setNbTempsPm(int t) {
-        Measure = t;
+        measure = t;
     }
 
     @Override
@@ -78,7 +80,6 @@ public class Engine implements IEngine {
             this.horloge.activatePeriodically(tic, getPeriodMSFromBPM(getTempo()));
             running = true;
         } else {
-            //this.setTempo(Init);
             this.horloge.disable();
             running = false;
         }
@@ -88,7 +89,7 @@ public class Engine implements IEngine {
     public void tic() {
         measureIndex--;
         if (measureIndex < 0) {
-            measureIndex = Measure;
+            measureIndex = measure;
             Command command = new MarkMeasure(controller);
             command.execute();
         } else {
